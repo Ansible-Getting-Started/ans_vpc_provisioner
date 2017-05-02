@@ -6,7 +6,7 @@
     - project_name: dfed-demo
     - vpcidr: 10.251.0.0/16
     - subnetcidra: 10.251.1.0/24
-    - subnetcidrb: 10.251.2.0/24
+#    - subnetcidrb: 10.251.2.0/24
   tasks:
   - ec2_vpc:
       state: present
@@ -109,7 +109,7 @@
         volume_type: gp2
         volume_size: 5
         delete_on_termination: true
-      vpc_subnet_id: "{{ subnetcidra }}"
+      vpc_subnet_id: "{{ subnets[0] }}"
       instance_type: t2.micro
       image: "{{ find_results.results[0].ami_id }}"
       wait: true
