@@ -3,7 +3,7 @@
   gather_facts: false
   vars:
     - region: us-east-2
-    - project_name: dfed-demo
+    - project_name: meseeks
     - vpcidr: 10.251.0.0/16
     - subnetcidra: 10.251.1.0/24
 #    - subnetcidrb: 10.251.2.0/24
