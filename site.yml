@@ -95,8 +95,9 @@
   
   - name: search for the latest rhel 7 ami
     ec2_ami_find:
+      owner: "aws-marketplace"
       region: "{{ region }}"
-      name: "CentOS-7.3*"
+      name: "CentOS-7.3.*"
     register: find_results
 
   - debug: var=find_results.results[0].ami_id
