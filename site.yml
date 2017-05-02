@@ -60,7 +60,7 @@
   - debug: var=subnets[0]
  
   - ec2_group:
-      name: webservers
+      name: servers
       region: "{{ region }}"
       description: SSH and HTTP/HTTPS 
       vpc_id: "{{ vpc_id }}"
@@ -103,7 +103,7 @@
   
   - ec2:
       key_name: dfed
-      group: webservers
+      group: servers
       volumes:
       - device_name: /dev/sda1
         volume_type: gp2
@@ -116,9 +116,9 @@
       region: "{{ region }}"
       exact_count: 1
       count_tag:
-        Count: dfed-demo
+        Count: meseeks
       instance_tags:
-        Name: dfed
-        Count: dfed-demo
+        Name: lookatme
+        Count: meseeks
       assign_public_ip: true
     register: ec2
