@@ -36,15 +36,15 @@
               gw: igw
 
   - debug: msg="Created VPC named {{ project_name }}-vpc"
-  
+
   - debug: msg="{{ network }}"
-  
+
   - ec2_vpc_net_facts:
       region: "{{ region }}"
       filters:
         "tag:Name": "{{ project_name }}-vpc"
     register: network
-  
+
   - set_fact:
       vpc_id: "{{ network.vpcs[0].id }}"
 
@@ -53,16 +53,16 @@
       filters:
         vpc-id: "{{ vpc_id }}"
     register: vpc_nets
-    
+
   - set_fact:
       subnets: "{{ vpc_nets.subnets | map(attribute='id') | list }}"
- 
+
   - debug: var=subnets[0]
- 
+
   - ec2_group:
       name: servers
       region: "{{ region }}"
-      description: SSH and HTTP/HTTPS 
+      description: SSH and HTTP/HTTPS
       vpc_id: "{{ vpc_id }}"
       rules:
         - proto: tcp
@@ -92,7 +92,7 @@
           cidr_ip: 0.0.0.0/0
     register: ssh_sg
   - debug: msg="Created VPC security group called public-ssh, ID {{ ssh_sg.group_id }} for granting SSH access to servers."
-  
+
   - name: search for the latest rhel 7 ami
     ec2_ami_find:
       owner: "410186602215"
@@ -101,9 +101,9 @@
     register: find_results
 
   - debug: var=find_results.results[0].ami_id
-  
+
   - ec2:
-      key_name: dfed
+      key_name: mrmeseeks
       group: servers
       volumes:
       - device_name: /dev/sda1
