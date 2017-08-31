@@ -1,0 +1,33 @@
+---
+  - name: search for the latest rhel 7 ami
+    ec2_ami_find:
+      owner: 410186602215
+      region: "{{ region }}"
+      name: CentOS Linux 7 x86_64 HVM EBS*
+    register: find_results
+
+  - debug:
+      var: find_results.results[0].ami_id
+
+  - name: Create instance
+    ec2:
+      key_name: wowlookatme
+      group: servers
+      volumes:
+      - device_name: /dev/sda1
+        volume_type: gp2
+        volume_size: 128
+        delete_on_termination: true
+      vpc_subnet_id: "{{ vpcsub }}"
+      instance_type: t2.medium
+      image: "{{ find_results.results[0].ami_id }}"
+      wait: true
+      region: "{{ region }}"
+      exact_count: 1
+      count_tag:
+        Count: meseeks
+      instance_tags:
+        Name: "{{ iname }}"
+        Count: mrmeseeks
+      assign_public_ip: true
+    register: ec2

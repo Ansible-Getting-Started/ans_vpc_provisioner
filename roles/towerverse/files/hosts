@@ -1,0 +1,12 @@
+localhost ansible_connection=local ansible_user=awx
+
+[webservers]
+
+
+[dbservers]
+
+
+[lbservers]
+
+
+[monitoring]

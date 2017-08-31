@@ -1,0 +1,5 @@
+---
+# vars file for mrcentos
+iname: minitower
+region: us-east-2
+vpcsub: subnet-f6b1c99f
